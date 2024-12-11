@@ -1,4 +1,4 @@
-$(document).ready(function (){
+$(function (){
   $('table').addClass('table');
   $('table').addClass('is-bordered')
   $('table').addClass('is-fullwidth');

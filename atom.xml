@@ -4,8 +4,103 @@
     <link rel="self" type="application/atom+xml" href="https://ender.yoga/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://ender.yoga"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2024-11-07T00:00:00+00:00</updated>
+    <updated>2024-12-11T00:00:00+00:00</updated>
     <id>https://ender.yoga/atom.xml</id>
+    <entry xml:lang="en">
+        <title>ECharts TreeMap &amp; Zola</title>
+        <published>2024-12-11T00:00:00+00:00</published>
+        <updated>2024-12-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://ender.yoga/articles/tree-map/"/>
+        <id>https://ender.yoga/articles/tree-map/</id>
+        
+        <content type="html" xml:base="https://ender.yoga/articles/tree-map/">&lt;p&gt;I&#x27;ve been working on hierarchical lists of cryptographic algorithms and technology frameworks in my spare time and have been spending a considerable amount of time on how to present the information. As much as I like tech data, I don&#x27;t think the information would be digested well enough using just text. A TreeMap seemed appropriate because I&#x27;d like to show&#x2F;indicate the structure of understanding the information along with the attributes that go along with the information&lt;&#x2F;p&gt;
+&lt;div id=&quot;first-map-chart&quot; style=&quot;width: 90%; min-height: 200px; margin-bottom: 10px;&quot;&gt;&lt;&#x2F;div&gt;
+&lt;script id=&quot;first-map-template&quot; type=&quot;text&#x2F;template&quot;&gt;
+- Root
+  - Backend Framework
+    - Django
+    - Rocket.rs
+  - Frontend Framework
+    - VueJS
+    - ReactJS
+&lt;&#x2F;script&gt;
+&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+  $(document).ready(async function() {
+    $(&#x27;#first-map-chart&#x27;).Chart__TreeMap(&#x27;first-map-template&#x27;);
+  })
+&lt;&#x2F;script&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;echarts.apache.org&#x2F;en&#x2F;index.html&quot;&gt;echarts&lt;&#x2F;a&gt; provides one of the best &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;&quot;&gt;TypeScript&lt;&#x2F;a&gt; APIs I&#x27;ve had the good fortune to encounter for charting. &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;&quot;&gt;Zola&lt;&#x2F;a&gt; offers an API called &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;content&#x2F;shortcodes&#x2F;&quot;&gt;ShortCodes&lt;&#x2F;a&gt; allowing for dynamic content to be rendered using Markdown Syntax&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;markdown&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-markdown &quot;&gt;&lt;code class=&quot;language-markdown&quot; data-lang=&quot;markdown&quot;&gt;&lt;span&gt;{% chart__tree_map(name=&amp;#39;first-map&amp;#39;, min_height=200) %}
+&lt;&#x2F;span&gt;&lt;span&gt;- Root
+&lt;&#x2F;span&gt;&lt;span&gt;  - Backend Framework
+&lt;&#x2F;span&gt;&lt;span&gt;    - Django
+&lt;&#x2F;span&gt;&lt;span&gt;    - Rocket.rs
+&lt;&#x2F;span&gt;&lt;span&gt;  - Frontend Framework
+&lt;&#x2F;span&gt;&lt;span&gt;    - VueJS
+&lt;&#x2F;span&gt;&lt;span&gt;    - ReactJS
+&lt;&#x2F;span&gt;&lt;span&gt;{% end %}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;What really impresses me though, is the interoperability of Rust &amp;amp; Javascript&#x2F;Typescript. Making it possible to embed more than one TreeMap in a single article. &lt;code&gt;name&lt;&#x2F;code&gt; has to be passed creating a new template with a new id&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;javascript&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-javascript &quot;&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;script id&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;{{name}}-template&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;text&#x2F;template&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;Root
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;Backend Framework
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;Django
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;Rocket&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;rs
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;Frontend Framework
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;VueJS
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;ReactJS
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;script&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;script type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;text&#x2F;javascript&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt;(document).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;ready&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;() &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;#{{name}}-chart&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;Chart__TreeMap&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;{{name}}-template&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  })
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;script&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Converting Markdown into JSON is a two step process. Parsing the content from the &lt;code&gt;&amp;lt;script type=&quot;text&#x2F;template&quot;&amp;gt;&lt;&#x2F;code&gt; tag into tokens using &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;markdown-it&#x2F;markdown-it&quot;&gt;markdown-it&lt;&#x2F;a&gt; and then passing the tokens into a javascript function that&#x27;ll loop over all the tokens and builds a nested dictionary of information to be passed into echarts.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;javascript&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-javascript &quot;&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;fn&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;Chart__TreeMap &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= async &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fc9354;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;elm &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d699ff;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;)[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fdb082;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;chart &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;echarts&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;init&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;elm&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;template_data &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;`&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;#${&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;`&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;md &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= new &lt;&#x2F;span&gt;&lt;span&gt;markdownit();
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;tokens &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;md&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;parse&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;template_data&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fdb082;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;innerText&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;options &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    series: {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;...&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;      data: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;tokensToJson&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;tokens&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;...
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Yay&lt;&#x2F;p&gt;
+&lt;div id=&quot;second-map-chart&quot; style=&quot;width: 90%; min-height: 200px; margin-bottom: 10px;&quot;&gt;&lt;&#x2F;div&gt;
+&lt;script id=&quot;second-map-template&quot; type=&quot;text&#x2F;template&quot;&gt;
+- Root
+  - Category One
+    - Technology One
+    - Technology Two
+  - Category Two
+    - Technology Three
+    - Category Three
+      - Technology Four
+      - Technology Five
+&lt;&#x2F;script&gt;
+&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+  $(document).ready(async function() {
+    $(&#x27;#second-map-chart&#x27;).Chart__TreeMap(&#x27;second-map-template&#x27;);
+  })
+&lt;&#x2F;script&gt;</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title></title>
         <published>2024-11-07T00:00:00+00:00</published>

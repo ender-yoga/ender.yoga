@@ -11,7 +11,7 @@
   <meta name="keywords" content="Machine Learning, Infrastructure, & Cloud" />
   <meta name="author" content="Joseph Curtin's Website" />
   <title>
-    パフォーマンス分析
+    ECharts TreeMap &amp; Zola
     </title>
   <!-- Imports -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,8 +36,7 @@
   <body>
     <section class="columns">
       <div class="column is-3">
-        <aside>
-          
+        
 <div class="has-text-right page-title-column">
   <a href="/">
     <h1 class="page-title title is-2 has-text-primary"> Joseph Curtin </h1>
@@ -84,7 +83,7 @@
         </a>
       </li>
       <li>
-        <a href="/articles&#x2F;" class="button">
+        <a href="/ja&#x2F;articles&#x2F;tree-map&#x2F;" class="button">
         <span class="has-site-colors">
             English&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <i class="fa-solid fa-language"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -96,7 +95,8 @@
   </section>
 </div>
 
-          <div class="menu hide-on-mobile">
+        <div class="container">
+          <aside class="menu hide-on-mobile">
             
 <p class="menu-label">Search</p>
 <ul class="menu-list">
@@ -126,70 +126,102 @@
 
 </ul>
 
-          </div>
-        </aside>
-      </div>
-      <div class="column is-9 content">
-        <ul class="menu-list" style="margin-left: 0px; margin-top: 0px;">
-        
-        <div class="main-top">
-        
-          <div>
-            <article class="section-article">
-              <header>
-                <h1 class="page-title title is-2 has-text-primary">
-                  <a href="https://ender.yoga/articles/tree-map/">ECharts TreeMap &amp; Zola </a>
-                </h1>
-                <p class="subtitle is-6">
-                  <time datetime="2024-12-11"> December 11, 2024 </time>
-                </p>
-              </header>
-              <section class="content">
-                <p></p>
-                <p>
-                  
-                </p>
-              </section>
-            </article>
-            <article class="section-article">
-              <header>
-                <h1 class="page-title title is-2 has-text-primary">
-                  <a href="https://ender.yoga/articles/datetime-benchmarks/"> DateTime (de)Serialization Benchmarks from Python, Numpy, Chrono, and Time </a>
-                </h1>
-                <p class="subtitle is-6">
-                  <time datetime="2024-10-06"> October  6, 2024 </time>
-                </p>
-              </header>
-              <section class="content">
-                <p></p>
-                <p>
-                  Datetime parsing and rendering sometimes require optimization when iterating over a large dataset. Say you have about a couple million rows of timestamps you'd like to parse into a datatype. It could take some time if you use the wrong `import` or `crate`. In this article, I'll benchmark what it takes to load a couple million datetime stamps with Python's datetime, Numpy, Chrono, and Time
-                </p>
-              </section>
-            </article>
-            <article class="section-article">
-              <header>
-                <h1 class="page-title title is-2 has-text-primary">
-                  <a href="https://ender.yoga/articles/postgresql-compression-benchmark/">Compression Benchmarks for PostgreSQL Archives </a>
-                </h1>
-                <p class="subtitle is-6">
-                  <time datetime="2024-08-29"> August 29, 2024 </time>
-                </p>
-              </header>
-              <section class="content">
-                <p></p>
-                <p>
-                  By far, my favorite RDBMS is PostgreSQL. Having worked with MySQL, MSSQL, Cassandra, Redis and more; the versatility of PostgreSQL continues to inspire me to write better and more complex SQL. I have a piece of software that reaches out to various news websites following best practices for crawling. Scraping content using provided by the sitemap.xml and following the rules set forth by the robots.txt file. The content of these sites can be anything, but the general approach is to collect as much news as possible to see if I can develop a series of heuristics to provide as technical indicators.
-                </p>
-              </section>
-            </article>
-            </div>
+          </aside>
         </div>
-        </ul>
       </div>
-      <div class="column is-12 show-on-mobile">
-        <aside class="menu">
-          
+      <div class="column is-9">
+        <article class="content">
+          <header class="main-top">
+            <h1 class="page-title title is-2 has-text-primary"> ECharts TreeMap &amp; Zola </h1>
+            <p class="subtitle is-6">
+              <time datetime="2024-12-11"> December 11, 2024 </time>
+            </p>
+          </header>
+          <section class="content">
+            <p>
+              <p>I've been working on hierarchical lists of cryptographic algorithms and technology frameworks in my spare time and have been spending a considerable amount of time on how to present the information. As much as I like tech data, I don't think the information would be digested well enough using just text. A TreeMap seemed appropriate because I'd like to show/indicate the structure of understanding the information along with the attributes that go along with the information</p>
+<div id="first-map-chart" style="width: 90%; min-height: 200px; margin-bottom: 10px;"></div>
+<script id="first-map-template" type="text/template">
+- Root
+  - Backend Framework
+    - Django
+    - Rocket.rs
+  - Frontend Framework
+    - VueJS
+    - ReactJS
+</script>
+<script type="text/javascript">
+  $(document).ready(async function() {
+    $('#first-map-chart').Chart__TreeMap('first-map-template');
+  })
+</script>
+<p><a rel="noopener" target="_blank" href="https://echarts.apache.org/en/index.html">echarts</a> provides one of the best <a rel="noopener" target="_blank" href="https://www.typescriptlang.org/">TypeScript</a> APIs I've had the good fortune to encounter for charting. <a rel="noopener" target="_blank" href="https://www.getzola.org/">Zola</a> offers an API called <a rel="noopener" target="_blank" href="https://www.getzola.org/documentation/content/shortcodes/">ShortCodes</a> allowing for dynamic content to be rendered using Markdown Syntax</p>
+<pre data-lang="markdown" style="background-color:#191919;color:#f8f8f2;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>{% chart__tree_map(name=&#39;first-map&#39;, min_height=200) %}
+</span><span>- Root
+</span><span>  - Backend Framework
+</span><span>    - Django
+</span><span>    - Rocket.rs
+</span><span>  - Frontend Framework
+</span><span>    - VueJS
+</span><span>    - ReactJS
+</span><span>{% end %}
+</span></code></pre>
+<p>What really impresses me though, is the interoperability of Rust &amp; Javascript/Typescript. Making it possible to embed more than one TreeMap in a single article. <code>name</code> has to be passed creating a new template with a new id</p>
+<pre data-lang="javascript" style="background-color:#191919;color:#f8f8f2;" class="language-javascript "><code class="language-javascript" data-lang="javascript"><span style="color:#ff5e5e;">&lt;</span><span style="color:#e9fdac;">script id</span><span style="color:#ff5e5e;">=</span><span style="color:#ffffff;">&quot;</span><span style="color:#fbe3bf;">{{name}}-template</span><span style="color:#ffffff;">&quot; </span><span style="color:#e9fdac;">type</span><span style="color:#ff5e5e;">=</span><span style="color:#ffffff;">&quot;</span><span style="color:#fbe3bf;">text/template</span><span style="color:#ffffff;">&quot;</span><span style="color:#ff5e5e;">&gt;
+</span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">Root
+</span><span>  </span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">Backend Framework
+</span><span>    </span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">Django
+</span><span>    </span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">Rocket</span><span>.</span><span style="color:#e9fdac;">rs
+</span><span>  </span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">Frontend Framework
+</span><span>    </span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">VueJS
+</span><span>    </span><span style="color:#ff5e5e;">- </span><span style="color:#e9fdac;">ReactJS
+</span><span style="color:#ff5e5e;">&lt;/</span><span style="color:#e9fdac;">script</span><span style="color:#ff5e5e;">&gt;
+</span><span>
+</span><span style="color:#ff5e5e;">&lt;</span><span style="color:#e9fdac;">script type</span><span style="color:#ff5e5e;">=</span><span style="color:#ffffff;">&quot;</span><span style="color:#fbe3bf;">text/javascript</span><span style="color:#ffffff;">&quot;</span><span style="color:#ff5e5e;">&gt;
+</span><span>  </span><span style="color:#8cdaff;">$</span><span>(document).</span><span style="color:#8cdaff;">ready</span><span>(</span><span style="color:#ff5e5e;">async </span><span style="font-style:italic;color:#fbdfb5;">function</span><span style="color:#ffffff;">() </span><span>{
+</span><span>    </span><span style="color:#8cdaff;">$</span><span>(</span><span style="color:#ffffff;">&#39;</span><span style="color:#fbe3bf;">#{{name}}-chart</span><span style="color:#ffffff;">&#39;</span><span>).</span><span style="color:#8cdaff;">Chart__TreeMap</span><span>(</span><span style="color:#ffffff;">&#39;</span><span style="color:#fbe3bf;">{{name}}-template</span><span style="color:#ffffff;">&#39;</span><span>);
+</span><span>  })
+</span><span style="color:#ff5e5e;">&lt;/</span><span style="color:#e9fdac;">script</span><span style="color:#ff5e5e;">&gt;
+</span></code></pre>
+<p>Converting Markdown into JSON is a two step process. Parsing the content from the <code>&lt;script type="text/template"&gt;</code> tag into tokens using <a rel="noopener" target="_blank" href="https://github.com/markdown-it/markdown-it">markdown-it</a> and then passing the tokens into a javascript function that'll loop over all the tokens and builds a nested dictionary of information to be passed into echarts.</p>
+<pre data-lang="javascript" style="background-color:#191919;color:#f8f8f2;" class="language-javascript "><code class="language-javascript" data-lang="javascript"><span style="color:#e9fdac;">$</span><span>.</span><span style="color:#e9fdac;">fn</span><span>.</span><span style="color:#8cdaff;">Chart__TreeMap </span><span style="color:#ff5e5e;">= async </span><span style="font-style:italic;color:#fbdfb5;">function</span><span style="color:#ffffff;">(</span><span style="font-style:italic;color:#fc9354;">name</span><span style="color:#ffffff;">) </span><span>{
+</span><span>  </span><span style="font-style:italic;color:#fbdfb5;">const </span><span style="color:#e9fdac;">elm </span><span style="color:#ff5e5e;">= </span><span style="color:#8cdaff;">$</span><span>(</span><span style="color:#d699ff;">this</span><span>)[</span><span style="color:#fdb082;">0</span><span>];
+</span><span>  </span><span style="font-style:italic;color:#fbdfb5;">const </span><span style="color:#e9fdac;">chart </span><span style="color:#ff5e5e;">= </span><span style="color:#e9fdac;">echarts</span><span>.</span><span style="color:#8cdaff;">init</span><span>(</span><span style="color:#e9fdac;">elm</span><span>);
+</span><span>  </span><span style="font-style:italic;color:#fbdfb5;">const </span><span style="color:#e9fdac;">template_data </span><span style="color:#ff5e5e;">= </span><span style="color:#8cdaff;">$</span><span>(</span><span style="color:#ffffff;">`</span><span style="color:#fbe3bf;">#${</span><span style="color:#e9fdac;">name</span><span style="color:#fbe3bf;">}</span><span style="color:#ffffff;">`</span><span>);
+</span><span>  </span><span style="font-style:italic;color:#fbdfb5;">const </span><span style="color:#e9fdac;">md </span><span style="color:#ff5e5e;">= new </span><span>markdownit();
+</span><span>  </span><span style="font-style:italic;color:#fbdfb5;">const </span><span style="color:#e9fdac;">tokens </span><span style="color:#ff5e5e;">= </span><span style="color:#e9fdac;">md</span><span>.</span><span style="color:#6699cc;">parse</span><span>(</span><span style="color:#e9fdac;">template_data</span><span>[</span><span style="color:#fdb082;">0</span><span>].</span><span style="color:#e9fdac;">innerText</span><span>);
+</span><span>  </span><span style="font-style:italic;color:#fbdfb5;">const </span><span style="color:#e9fdac;">options </span><span style="color:#ff5e5e;">= </span><span>{
+</span><span>    series: {
+</span><span>      </span><span style="color:#ff5e5e;">...</span><span>,
+</span><span>      data: </span><span style="color:#8cdaff;">tokensToJson</span><span>(</span><span style="color:#e9fdac;">tokens</span><span>);
+</span><span>    }
+</span><span>  }
+</span><span style="color:#ff5e5e;">...
+</span></code></pre>
+<p>Yay</p>
+<div id="second-map-chart" style="width: 90%; min-height: 200px; margin-bottom: 10px;"></div>
+<script id="second-map-template" type="text/template">
+- Root
+  - Category One
+    - Technology One
+    - Technology Two
+  - Category Two
+    - Technology Three
+    - Category Three
+      - Technology Four
+      - Technology Five
+</script>
+<script type="text/javascript">
+  $(document).ready(async function() {
+    $('#second-map-chart').Chart__TreeMap('second-map-template');
+  })
+</script>
+            </p>
+          </section>
+        </article>
+        <div class="column is-12 show-on-mobile">
+          <aside class="menu">
+            
 <p class="menu-label">Search</p>
 <ul class="menu-list">
   <li>
@@ -207,7 +239,7 @@
   </li>
 </ul>
 
-          
+            
 <p class="menu-label">Article Filters</p>
 <ul class="menu-list">
 
@@ -218,7 +250,8 @@
 
 </ul>
 
-        </aside>
+          </aside>
+        </div>
       </div>
     </section>
     
@@ -270,8 +303,8 @@ function initAsideSearch() {
         term = term + " ";
       }
       const url_parts = [window.location.protocol, '//', window.location.host];
-      if ("ja" != "en") {
-        url_parts.push('/ja');
+      if ("en" != "en") {
+        url_parts.push('/en');
       }
       url_parts.push('/search/')
       const search_url = new URL(url_parts.join(''));
