@@ -336,12 +336,6 @@
     
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZP9H4GE0Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-VZP9H4GE0Y');
-</script>
 <script type="text/javascript" src="https://ender.yoga/elasticlunr.min.js" defer></script>
 <script type="text/javascript" src="https://ender.yoga/search_index.en.js" defer></script>
 <script type="text/javascript" src="https://ender.yoga/js.cookie-3.0.5.min.js" integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous"></script>
@@ -353,6 +347,28 @@
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script>
+  function genIden(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+  let gauid = Cookies.get('gauid');
+  if (gauid == undefined) {
+    gauid = genIden(8);
+    Cookies.set('gauid', gauid);
+  }
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VZP9H4GE0Y', {
+    user_id: gauid
   });
 </script>
 
