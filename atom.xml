@@ -4,8 +4,87 @@
     <link rel="self" type="application/atom+xml" href="https://ender.yoga/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://ender.yoga"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2025-07-24T00:00:00+00:00</updated>
+    <updated>2025-10-31T00:00:00+00:00</updated>
     <id>https://ender.yoga/atom.xml</id>
+    <entry xml:lang="en">
+        <title>`serde`</title>
+        <published>2025-10-31T00:00:00+00:00</published>
+        <updated>2025-10-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://ender.yoga/articles/serde/"/>
+        <id>https://ender.yoga/articles/serde/</id>
+        
+        <content type="html" xml:base="https://ender.yoga/articles/serde/">&lt;p&gt;Implementing &lt;code&gt;Deserialize&amp;lt;&#x27;de&amp;gt;&lt;&#x2F;code&gt; on a struct always makes me take a step back. I start to question the validity of having to write a &lt;code&gt;Visitor&amp;lt;&#x27;de&amp;gt;&lt;&#x2F;code&gt;-trait compatible struct. Then I slowly remember that JSON can be a nested tree of pretty much any kind of data-object representation and I remember the brilliance of the with &lt;code&gt;serde&lt;&#x2F;code&gt;&#x27;s API approach all over again.&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s a good set of feels.&lt;&#x2F;p&gt;
+&lt;p&gt;That being said, the documentation always takes a moment for me to remember what to do. Therefore I came up with these snippets to help me remember what I need to do, quicker than it would take for me to wait for ChatGPT to finish its generation phase&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;renaming-a-property-on-the-object&quot;&gt;Renaming a property on the Object&lt;&#x2F;h2&gt;
+&lt;p&gt;Rust likes to use &lt;code&gt;snake_case&lt;&#x2F;code&gt; pretty much everywhere a variable, method, or function is written. Having the ability to rename the json object properties to something more Rust-like-able, allows to skip having the &lt;code&gt;#[allow(dead_code)]&lt;&#x2F;code&gt; macro&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;serde::Deserialize;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Debug, Deserialize)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;struct &lt;&#x2F;span&gt;&lt;span&gt;Content {
+&lt;&#x2F;span&gt;&lt;span&gt;	#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;serde&lt;&#x2F;span&gt;&lt;span&gt;(rename&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;Name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)]
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;: String,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;tokio&lt;&#x2F;span&gt;&lt;span&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; content &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;r&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;#&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;{&amp;quot;Name&amp;quot;: &amp;quot;my name is, serde&amp;quot;}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;#&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; content: Content &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;serde_json::from_str(content).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;unwrap&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;	println!(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fdb082;&quot;&gt;{:?}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;, content.name);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In &lt;code&gt;Content&lt;&#x2F;code&gt;, &lt;code&gt;name&lt;&#x2F;code&gt; is renamed from &lt;code&gt;Name&lt;&#x2F;code&gt; using &lt;code&gt;#[serde(rename=&quot;Name&quot;)&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;deserializing-a-digit-into-an-enum&quot;&gt;Deserializing a digit into an enum&lt;&#x2F;h2&gt;
+&lt;p&gt;Sometimes &lt;code&gt;#[derive(Deserialize)]&lt;&#x2F;code&gt; isn&#x27;t enough and we need to drop down into writing a trait implementation. Enums are straight forward using &lt;code&gt;TryFrom&lt;&#x2F;code&gt;. It can be used to map an error into something &lt;code&gt;Deserialize&amp;lt;&#x27;de&amp;gt;&lt;&#x2F;code&gt; will understand.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, if trying to keep a log of people logging into and out of an application. Tracking that information in a &lt;code&gt;struct Action{event:String}&lt;&#x2F;code&gt; is one way to do it. I personally would prefer to use a &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;ch06-01-defining-an-enum.html&quot;&gt;Rust enum&lt;&#x2F;a&gt;. The problem though is &lt;code&gt;serde&lt;&#x2F;code&gt; doesn&#x27;t provide a macro to support enums the way I like to implement. ( At least from what I&#x27;m aware of ).&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Debug)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;enum &lt;&#x2F;span&gt;&lt;span&gt;AuditLogAction { 
+&lt;&#x2F;span&gt;&lt;span&gt;  LoggedIn,
+&lt;&#x2F;span&gt;&lt;span&gt;  LoggedOut,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Implement the &lt;code&gt;TryFrom&lt;&#x2F;code&gt;  trait on the enum.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span&gt;TryFrom&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;AuditLogAction {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;Error &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt; AuditEndpointError;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;try_from&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fc9354;&quot;&gt;value&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;Result&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;Self&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;Self::&lt;&#x2F;span&gt;&lt;span&gt;Error&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span&gt; value {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fdb082;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;Self&lt;&#x2F;span&gt;&lt;span&gt;::LoggedIn,
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fdb082;&quot;&gt;1 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;Self&lt;&#x2F;span&gt;&lt;span&gt;::LoggedOut,
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;_ =&amp;gt; return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span&gt;(AuditEndpointError::AuditLogActionNotSupported(value))
+&lt;&#x2F;span&gt;&lt;span&gt;    })
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Finally, implement the deserialize trait which calls the &lt;code&gt;TryFrom&lt;&#x2F;code&gt; trait and maps the error to something &lt;code&gt;Deserialize&amp;lt;&#x27;de&amp;gt;&lt;&#x2F;code&gt; can understand.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;impl&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;#39;de&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; Deserialize&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;#39;de&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;AuditLogAction {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;deserialize&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;D&amp;gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fc9354;&quot;&gt;deserializer&lt;&#x2F;span&gt;&lt;span&gt;: D) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;Result&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;Self&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;D::&lt;&#x2F;span&gt;&lt;span&gt;Error&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;where&lt;&#x2F;span&gt;&lt;span&gt; D: serde::Deserializer&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;&amp;#39;de&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; value &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span&gt;::deserialize(deserializer)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;?&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    AuditLogAction::try_from(value).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(serde::de::Error::custom)
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;With everything setup, time to implement the main function that&#x27;ll run the program and convert an array of integers from JSON into enum variants.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#191919;color:#f8f8f2;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;tokio&lt;&#x2F;span&gt;&lt;span&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e9fdac;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8cdaff;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; content &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;r&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;#&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;[0, 1]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;#&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fbdfb5;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; content: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fbe3bf;&quot;&gt;Vec&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;AuditLogAction&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff5e5e;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;serde_json::from_str(content).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;unwrap&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;  println!(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fdb082;&quot;&gt;{content:?}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffffff;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I&#x27;m still looking for a reason to use the &lt;code&gt;Visitor&amp;lt;&#x27;de&amp;gt;&lt;&#x2F;code&gt; pattern. &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;bsky.app&#x2F;profile&#x2F;ender-yoga.bsky.social&quot;&gt;Any suggestions?&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Full source code can be &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jbcurtin&#x2F;serde-nibs&#x2F;tree&#x2F;main&quot;&gt;found here&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Coworkers and the Double Empathy Problem Manifest</title>
         <published>2025-07-24T00:00:00+00:00</published>
